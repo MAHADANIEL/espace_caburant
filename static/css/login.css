@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2a2a4a, #1a1a3a); /* Fond dégradé sombre */
+    color: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+
+.login-container {
+    text-align: center;
+    z-index: 10;
+    padding: 20px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.login-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #8aff8a; /* Vert vif pour le titre principal */
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px rgba(138, 255, 138, 0.6);
+}
+
+.login-box {
+    background: rgba(40, 40, 70, 0.6); /* Fond semi-transparent */
+    backdrop-filter: blur(8px); /* Effet de flou pour le verre dépoli */
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05); /* Ombre douce et bordure fine */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeIn 1s ease-out;
+}
+
+.box-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #b0e0ff; /* Bleu clair pour le sous-titre */
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+    color: #b0b0e0;
+}
+
+.input-group input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e0e0e0;
+    font-size: 1.1em;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.input-group input[type="password"]::placeholder {
+    color: #8a8a8a;
+}
+
+.input-group input[type="password"]:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 0 2px #8aff8a;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(45deg, #8aff8a, #5cb85c); /* Dégradé pour le bouton */
+    color: #1a1a3a;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+}
+
+button:hover {
+    background: linear-gradient(45deg, #5cb85c, #8aff8a);
+    box-shadow: 0 7px 20px rgba(0, 255, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.error-message {
+    color: #ff6b6b; /* Rouge pour les messages d'erreur */
+    font-size: 0.95em;
+    margin-top: 15px;
+    height: 20px; /* Pour éviter le "saut" du contenu */
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+.footer-text {
+    margin-top: 50px;
+    font-size: 0.85em;
+    color: #7a7a9a;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

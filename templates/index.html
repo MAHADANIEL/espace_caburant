@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Carburant - Tableau de Bord</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">MON ESPACE CARBURANT</h1>
+            <div class="nav-buttons">
+                <button id="historyButton" class="nav-button">Historique</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="card fuel-card">
+                <h2 class="card-title">Niveau de Carburant</h2>
+                <div class="fuel-display">
+   <div class="fuel-display">
+    <div class="fuel-icon-wrapper"> <img src="image/camion_vert.png" alt="Camion vert" class="fuel-icon">
+    </div>
+    <div class="fuel-data">
+        <p class="fuel-label">Litres Restant :</p>
+        <p id="litresRestant" class="fuel-value">0.00 L</p>
+    </div>
+</div>
+                <div class="input-group">
+                    <label for="litresInitial">Litre Initial (Capacité Max.) :</label>
+                    <input type="number" id="litresInitial" step="0.01" min="0" placeholder="Entrez la capacité initiale">
+                    <button id="saveInitialFuel" class="action-button small-button">Définir</button>
+                </div>
+            </div>
+
+            <div class="card manual-add-card">
+                <h2 class="card-title">Ajout Manuel de Carburant</h2>
+                <div class="input-group">
+                    <label for="manualLitres">Quantité (Litres) :</label>
+                    <input type="number" id="manualLitres" step="0.01" min="0" placeholder="Entrez les litres ajoutés">
+                </div>
+                <button id="addManualFuel" class="action-button">Ajouter Manuellement</button>
+                <p id="manualMessage" class="message"></p>
+            </div>
+
+            <div class="card clock-card">
+                <h2 class="card-title">Horloge & Date</h2>
+                <div class="clock-display">
+                    <div class="analog-clock">
+                        <div class="hand hour" id="hourHand"></div>
+                        <div class="hand minute" id="minuteHand"></div>
+                        <div class="hand second" id="secondHand"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                    <div class="digital-clock" id="digitalClock"></div>
+                    <div class="current-date" id="currentDate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

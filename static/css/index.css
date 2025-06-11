@@ -1,0 +1,376 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-title {
+    font-size: 3em;
+    font-weight: 700;
+    color: #8aff8a;
+    text-shadow: 0 0 15px rgba(138, 255, 138, 0.7);
+    margin: 0;
+}
+
+.nav-button {
+    background: linear-gradient(45deg, #b0e0ff, #80c0ff); /* Bleu pour les boutons de navigation */
+    color: #1a1a3a;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(176, 224, 255, 0.3);
+}
+
+.nav-button:hover {
+    background: linear-gradient(45deg, #80c0ff, #b0e0ff);
+    box-shadow: 0 7px 20px rgba(176, 224, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: rgba(40, 40, 70, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #b0e0ff;
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Fuel Card Specifics */
+.fuel-card .fuel-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Nouveau conteneur pour l'image du camion avec le fond animé */
+.fuel-icon-wrapper {
+    width: 150px; /* Largeur de la "fenêtre" de l'environnement */
+    height: 100px; /* Hauteur de la "fenêtre" de l'environnement */
+    overflow: hidden; /* Cache tout ce qui dépasse du conteneur */
+    border-radius: 10px; /* Bords légèrement arrondis pour l'esthétique */
+    display: flex; /* Pour centrer l'image du camion à l'intérieur */
+    justify-content: center; /* Centre horizontalement le camion */
+    align-items: center; /* Centre verticalement le camion */
+    position: relative; /* Important pour le positionnement du fond animé */
+
+    /* Nouveau fond : remplacez 'url(image/sky_background.png)' par le chemin de VOTRE image */
+    background-image: url('image/sky_background.png'); /* Exemple: une image de ciel ou de nuages */
+    background-size: cover; /* Couvre le conteneur, peut être 'contain' ou une taille fixe si répétable */
+    background-repeat: repeat-x; /* Répète horizontalement si l'image est petite ou un motif */
+    animation: scroll-environment 20s linear infinite; /* Animation du fond qui défile */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5); /* Ombre interne pour donner de la profondeur */
+}
+
+
+.fuel-card .fuel-icon {
+    width: 80px; /* La largeur du camion reste la même */
+    height: auto; /* Maintient les proportions */
+    animation: pulsating-glow 4s infinite alternate; /* On garde uniquement l'animation de halo pour le camion */
+    z-index: 1; /* Assure que le camion est au-dessus du fond animé */
+}
+
+.fuel-card .fuel-data {
+    text-align: left;
+}
+
+.fuel-card .fuel-label {
+    font-size: 1.1em;
+    color: #b0b0e0;
+    margin-bottom: 5px;
+}
+
+.fuel-card .fuel-value {
+    font-size: 3em;
+    font-weight: 700;
+    color: #8aff8a;
+    margin: 0;
+    text-shadow: 0 0 8px rgba(138, 255, 138, 0.6);
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: #b0b0e0;
+}
+
+.input-group input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e0e0e0;
+    font-size: 1em;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.input-group input[type="number"]:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 0 2px #8aff8a;
+}
+
+.action-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #8aff8a, #5cb85c);
+    color: #1a1a3a;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+}
+
+.action-button:hover {
+    background: linear-gradient(45deg, #5cb85c, #8aff8a);
+    box-shadow: 0 7px 20px rgba(0, 255, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.small-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 0.9em;
+    width: auto;
+}
+
+/* Messages (Success/Error) */
+.message {
+    font-size: 0.9em;
+    margin-top: 15px;
+    text-align: center;
+    min-height: 20px; /* Espace réservé */
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+.message.success {
+    color: #8aff8a;
+}
+
+.message.error {
+    color: #ff6b6b;
+}
+
+/* Clock Card Specifics */
+.clock-card {
+    text-align: center;
+    justify-content: center; /* Centrer le contenu verticalement */
+}
+
+.clock-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.analog-clock {
+    width: 150px;
+    height: 150px;
+    border: 5px solid #b0e0ff;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 20px rgba(176, 224, 255, 0.4), inset 0 0 10px rgba(176, 224, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.analog-clock .hand {
+    position: absolute;
+    transform-origin: bottom center;
+    background: #b0e0ff;
+    border-radius: 5px;
+    z-index: 5;
+}
+
+.analog-clock .hour {
+    width: 4px;
+    height: 40px;
+    top: calc(50% - 40px);
+    left: calc(50% - 2px);
+}
+
+.analog-clock .minute {
+    width: 3px;
+    height: 60px;
+    top: calc(50% - 60px);
+    left: calc(50% - 1.5px);
+}
+
+.analog-clock .second {
+    width: 2px;
+    height: 65px;
+    top: calc(50% - 65px);
+    left: calc(50% - 1px);
+    background: #ff6b6b; /* Seconde en rouge */
+}
+
+.analog-clock .center-dot {
+    width: 10px;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.digital-clock {
+    font-size: 2.5em;
+    font-weight: 600;
+    color: #8aff8a;
+    text-shadow: 0 0 10px rgba(138, 255, 138, 0.5);
+}
+
+.current-date {
+    font-size: 1.2em;
+    color: #b0e0ff;
+    margin-top: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .main-title {
+        font-size: 2em;
+    }
+
+    .nav-buttons {
+        width: 100%;
+    }
+
+    .nav-button {
+        width: 100%;
+    }
+
+    .main-content {
+        grid-template-columns: 1fr; /* Stack cards vertically on small screens */
+    }
+
+    .card {
+        padding: 25px;
+    }
+
+    .fuel-card .fuel-value {
+        font-size: 2.5em;
+    }
+
+    .analog-clock {
+        width: 120px;
+        height: 120px;
+    }
+
+    .digital-clock {
+        font-size: 2em;
+    }
+}
+
+/* Animations */
+@keyframes pulsating-glow {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(138, 255, 138, 0.5)); /* Vert clair initial */
+    }
+
+    25% {
+        filter: drop-shadow(0 0 20px rgba(176, 224, 255, 0.7)); /* Bleu clair plus intense */
+    }
+
+    50% {
+        filter: drop-shadow(0 0 30px rgba(138, 255, 138, 1)); /* Vert très intense */
+    }
+
+    75% {
+        filter: drop-shadow(0 0 20px rgba(176, 224, 255, 0.7)); /* Retour au bleu intense */
+    }
+
+    100% {
+        filter: drop-shadow(0 0 10px rgba(138, 255, 138, 0.5)); /* Retour au vert initial */
+    }
+}
+
+/* Nouvelle animation pour le défilement du fond de l'environnement */
+@keyframes scroll-environment {
+    from {
+        background-position: 0 0; /* Position initiale du fond */
+    }
+    to {
+        background-position: -200px 0; /* Déplace le fond de 200px vers la gauche (ajuster selon votre image) */
+    }
+}

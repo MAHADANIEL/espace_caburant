@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #8aff8a;
+    text-shadow: 0 0 15px rgba(138, 255, 138, 0.7);
+    margin: 0;
+}
+
+.nav-button {
+    background: linear-gradient(45deg, #b0e0ff, #80c0ff);
+    color: #1a1a3a;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(176, 224, 255, 0.3);
+}
+
+.nav-button:hover {
+    background: linear-gradient(45deg, #80c0ff, #b0e0ff);
+    box-shadow: 0 7px 20px rgba(176, 224, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.history-card {
+    background: rgba(40, 40, 70, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 400px; /* Assure une hauteur minimale */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #b0e0ff;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Permet le défilement horizontal sur petits écrans */
+    margin-bottom: 20px;
+}
+
+#historyTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    overflow: hidden; /* Pour que les coins arrondis fonctionnent avec le tableau */
+}
+
+#historyTable th,
+#historyTable td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#historyTable th {
+    background: rgba(176, 224, 255, 0.15); /* En-tête de tableau plus clair */
+    color: #b0e0ff;
+    font-weight: 600;
+    font-size: 1.1em;
+    white-space: nowrap; /* Empêche le texte de se casser sur plusieurs lignes */
+}
+
+#historyTable tr:last-child td {
+    border-bottom: none;
+}
+
+#historyTable tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1); /* Effet de survol sur les lignes */
+}
+
+#historyTable tbody tr.manual-entry {
+    color: #8aff8a; /* Texte vert pour les entrées manuelles */
+}
+
+#historyTable tbody tr.auto-entry {
+    color: #b0e0ff; /* Texte bleu pour les entrées automatiques */
+}
+
+.empty-message {
+    font-size: 1.2em;
+    color: #b0b0e0;
+    text-align: center;
+    margin-top: 50px;
+    display: none; /* Caché par défaut, affiché par JS si besoin */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .main-title {
+        font-size: 1.8em;
+    }
+
+    .nav-button {
+        width: 100%;
+    }
+
+    .history-card {
+        padding: 20px;
+    }
+
+    #historyTable th,
+    #historyTable td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Carburant - Historique</title>
+    <link rel="stylesheet" href="historique.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">HISTORIQUE DES DISTRIBUTIONS</h1>
+            <button id="backButton" class="nav-button">Retour au Tableau de Bord</button>
+        </div>
+
+        <div class="history-card">
+            <h2 class="card-title">Dernières Distributions</h2>
+            <div class="table-container">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Litres</th>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p id="emptyHistoryMessage" class="empty-message">Aucune distribution enregistrée pour le moment.</p>
+        </div>
+    </div>
+
+    <script src="historique.js"></script>
+</body>
+</html>
