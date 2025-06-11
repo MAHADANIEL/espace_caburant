@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
 from datetime import datetime
@@ -9,7 +9,8 @@ CORS(app)  # Active CORS pour toutes les routes
 # ******************************************************
 # --- 1. CONFIGURATION ET INITIALISATION DE LA DB ---
 # ******************************************************
-DATABASE = 'database.db'
+DATABASE = os.path.join(tempfile.gettempdir(), 'database.db')
+
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
@@ -229,6 +230,22 @@ def consume_fuel():
         return jsonify({'message': f'Erreur serveur: {str(e)}'}), 500
 
 # ******************************************************
+# --- Routes pour servir les pages front-end ---
+# ******************************************************
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/historique')
+def historique():
+    return render_template('historique.html')
+
+# ******************************************************
 # --- 3. LANCEMENT DE L'APPLICATION ---
 # ******************************************************
 if __name__ == '__main__':
@@ -236,4 +253,3 @@ if __name__ == '__main__':
     import os
     port = int(os.environ.get('PORT', 5000))  # Render définit cette variable automatiquement
     app.run(host='0.0.0.0', port=port, debug=False)
-
