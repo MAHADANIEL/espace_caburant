@@ -116,6 +116,71 @@ def set_initial_fuel():
     except Exception as e:
         return jsonify({'message': f'Erreur: {str(e)}'}), 500
 
+# NOUVELLE ROUTE : Pour l'ajout manuel de carburant depuis le frontend
+@app.route('/api/fuel/add', methods=['POST'])
+def add_manual_fuel():
+    data = request.get_json()
+    amount_to_add = data.get('amount')
+
+    if amount_to_add is None:
+        return jsonify({'message': 'Champ "amount" manquant.'}), 400
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT current_litres, max_capacity FROM cistern WHERE id = 1')
+    cistern_data = cursor.fetchone()
+
+    if not cistern_data:
+        conn.close()
+        return jsonify({'message': 'Citerne non trouvée. Définissez la capacité maximale d\'abord.'}), 404
+
+    current_litres_db = cistern_data['current_litres']
+    max_capacity_db = cistern_data['max_capacity']
+
+    if max_capacity_db <= 0:
+        conn.close()
+        return jsonify({'message': 'Capacité maximale non définie.'}), 400
+
+    try:
+        amount_to_add = float(amount_to_add)
+        if amount_to_add <= 0:
+            conn.close()
+            return jsonify({'message': 'Quantité positive requise pour l\'ajout.'}), 400
+
+        old_level = current_litres_db
+        new_level = min(old_level + amount_to_add, max_capacity_db) # Ne pas dépasser la capacité max
+
+        if new_level > old_level: # S'assurer qu'il y a eu un ajout effectif
+            cursor.execute('UPDATE cistern SET current_litres = ? WHERE id = 1', (new_level,))
+
+            amount_actual_added = new_level - old_level
+            timestamp_str = datetime.now().isoformat()
+            cursor.execute('''
+                INSERT INTO distribution_history (timestamp, amount_distributed, old_level, new_level, type)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (timestamp_str, amount_actual_added, old_level, new_level, 'manual_addition'))
+            print(f"Ajout manuel enregistré : {amount_actual_added:.2f} L")
+            message = f'{amount_actual_added:.2f} L ajoutés.'
+        else:
+            message = 'Réservoir déjà plein ou aucune quantité ajoutée car la capacité maximale serait dépassée.'
+            
+        conn.commit()
+        conn.close()
+
+        return jsonify({
+            'message': message,
+            'litresRestant': round(new_level, 2),
+            'maxCapacity': round(max_capacity_db, 2)
+        }), 200
+
+    except ValueError:
+        conn.close()
+        return jsonify({'message': 'Valeur de quantité invalide.'}), 400
+    except Exception as e:
+        conn.close()
+        return jsonify({'message': f'Erreur serveur lors de l\'ajout manuel: {str(e)}'}), 500
+
+
 @app.route('/api/fuel/update_from_hardware', methods=['POST'])
 def update_from_hardware():
     data = request.get_json()
@@ -205,15 +270,18 @@ def consume_fuel():
         old_level = current_litres_db
         new_level = max(old_level - amount_to_consume, 0.0)
 
-        if new_level == 0:
+        if new_level == 0 and old_level > 0: # Si on atteint zéro et qu'il y avait du carburant
             message = 'Réservoir vide !'
-        else:
+        elif new_level < old_level: # Si le niveau a réellement diminué
             message = f'{amount_to_consume:.2f} L consommés.'
+        else: # Si rien n'a été consommé (ex: demande 0, ou déjà vide)
+            message = 'Aucune consommation enregistrée.'
+
 
         cursor.execute('UPDATE cistern SET current_litres = ? WHERE id = 1', (new_level,))
 
         amount_actual_consumed = old_level - new_level
-        if amount_actual_consumed > 0.01:
+        if amount_actual_consumed > 0.01: # Enregistrer si la quantité consommée est significative
             timestamp_str = datetime.now().isoformat()
             cursor.execute('''
                 INSERT INTO distribution_history (timestamp, amount_distributed, old_level, new_level, type)
