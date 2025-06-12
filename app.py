@@ -6,7 +6,7 @@ import os
 import tempfile
 
 app = Flask(__name__)
-CORS(app)# Active CORS pour toutes les routes
+CORS(app) # Active CORS pour toutes les routes
 
 # ******************************************************
 # --- 1. CONFIGURATION ET INITIALISATION DE LA DB ---
@@ -51,6 +51,12 @@ def init_db():
         else:
             print("Citerne déjà existante.")
         conn.close()
+
+# APPEL DE LA FONCTION init_db() ICI, EN DEHORS DU BLOC if __name__ == '__main__':
+# Cela garantit qu'elle est toujours exécutée au démarrage de l'application,
+# que ce soit via 'python app.py' ou 'gunicorn app:app'.
+init_db()
+
 
 # ******************************************************
 # --- 2. ROUTES DE L'API ---
@@ -256,7 +262,10 @@ def historique():
 # --- 3. LANCEMENT DE L'APPLICATION ---
 # ******************************************************
 if __name__ == '__main__':
-    init_db()
+    # Cette ligne n'est plus strictement nécessaire ici car init_db() est appelée plus haut
+    # Mais la laisser ne fera pas de mal, elle sera juste appelée une deuxième fois si
+    # le script est exécuté directement. Pour Gunicorn, elle ne sera pas appelée du tout.
+    # init_db()
     import os
     port = int(os.environ.get('PORT', 5000)) # Render définit cette variable automatiquement
     app.run(host='0.0.0.0', port=port, debug=False)
