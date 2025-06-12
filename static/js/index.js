@@ -26,14 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // const consumeManualFuelButton = document.getElementById('consumeManualFuel'); // Sera null si non ajouté dans HTML
 
 
-  const API_BASE_URL = 'https://espace-caburant.onrender.com/api'; // NOUVELLE ADRESSE DE VOTRE BACKEND SUR RENDER
+    const API_BASE_URL = 'https://espace-caburant.onrender.com/api'; // NOUVELLE ADRESSE DE VOTRE BACKEND SUR RENDER
 
     // --- Fonctions utilitaires ---
 
     // Affiche un message temporaire à l'utilisateur
     const showMessage = (element, message, type) => {
         element.textContent = message;
-        element.classList.remove('success', 'error');
+        element.classList.remove('success', 'error'); // Assurez-vous que ces classes sont définies dans votre CSS
         element.classList.add(type, 'show');
         setTimeout(() => {
             element.classList.remove('show');
@@ -77,9 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Quand l'utilisateur clique sur "Définir" pour la capacité initiale
     saveInitialFuelButton.addEventListener('click', async () => {
-        const initialCapacity = parseFloat(litresInitialInput.value);
+        // MODIFICATION ICI: Remplacer la virgule par un point pour le parsing
+        const initialCapacityString = litresInitialInput.value.replace(',', '.');
+        const initialCapacity = parseFloat(initialCapacityString);
+
         if (isNaN(initialCapacity) || initialCapacity <= 0) {
-            showMessage(manualMessage, 'Veuillez entrer une capacité valide et positive.', 'error');
+            showMessage(manualMessage, 'Veuillez entrer une capacité valide et positive (ex: 50.5 ou 50,5).', 'error');
             return;
         }
 
@@ -87,11 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE_URL}/fuel/set_initial`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // Le backend attend un JSON avec la clé 'capacity'
                 body: JSON.stringify({ capacity: initialCapacity }),
             });
             const data = await response.json();
             if (!response.ok) {
+                // Si le backend renvoie un message d'erreur, utilisez-le
                 throw new Error(data.message || 'Erreur lors de la définition de la capacité initiale.');
             }
             showMessage(manualMessage, data.message, 'success');
@@ -104,10 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Quand l'utilisateur clique sur "Ajouter Manuellement"
     addManualFuelButton.addEventListener('click', async () => {
-        const amountToAdd = parseFloat(manualLitresInput.value);
+        // MODIFICATION ICI: Remplacer la virgule par un point pour le parsing
+        const amountToAddString = manualLitresInput.value.replace(',', '.');
+        const amountToAdd = parseFloat(amountToAddString);
 
         if (isNaN(amountToAdd) || amountToAdd <= 0) {
-            showMessage(manualMessage, 'Veuillez entrer une quantité positive à ajouter.', 'error');
+            showMessage(manualMessage, 'Veuillez entrer une quantité positive à ajouter (ex: 0.3 ou 0,3).', 'error');
             return;
         }
 
@@ -124,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE_URL}/fuel/add`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // Le backend attend un JSON avec la clé 'amount'
                 body: JSON.stringify({ amount: amountToAdd }),
             });
             const data = await response.json();
             if (!response.ok) {
+                // Si le backend renvoie un message d'erreur, utilisez-le
                 throw new Error(data.message || 'Erreur lors de l\'ajout de carburant.');
             }
             showMessage(manualMessage, data.message, 'success');
@@ -145,10 +150,12 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
     if (typeof consumeManualFuelButton !== 'undefined' && consumeManualFuelButton !== null) { // Vérifie si le bouton existe dans le HTML
         consumeManualFuelButton.addEventListener('click', async () => {
-            const amountToConsume = parseFloat(consumeLitresInput.value);
+            // MODIFICATION ICI: Remplacer la virgule par un point pour le parsing
+            const amountToConsumeString = consumeLitresInput.value.replace(',', '.');
+            const amountToConsume = parseFloat(amountToConsumeString);
 
             if (isNaN(amountToConsume) || amountToConsume <= 0) {
-                showMessage(manualMessage, 'Veuillez entrer une quantité positive à consommer.', 'error');
+                showMessage(manualMessage, 'Veuillez entrer une quantité positive à consommer (ex: 0.3 ou 0,3).', 'error');
                 return;
             }
 
@@ -164,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch(`${API_BASE_URL}/fuel/consume`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    // Le backend attend un JSON avec la clé 'amount'
                     body: JSON.stringify({ amount: amountToConsume }),
                 });
                 const data = await response.json();
