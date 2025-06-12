@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const amountToAdd = parseFloat(amountToAddString);
 
         if (isNaN(amountToAdd) || amountToAdd <= 0) {
-            showMessage(manualMessage, 'Veuillez entrer une quantité positive à ajouter (ex: 0.3 ou 0,3).', 'error');
+            showMessage(manualMessage, 'Veuillez entrer une quantité positive à consommer (ex: 0.3 ou 0,3).', 'error');
             return;
         }
 
@@ -121,12 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentFuelData = currentFuelDataResponse.ok ? await currentFuelDataResponse.json() : null;
 
         if (!currentFuelData || currentFuelData.maxCapacity <= 0) {
-            showMessage(manualMessage, 'Veuillez définir la capacité maximale avant d\'ajouter du carburant.', 'error');
+            showMessage(manualMessage, 'Veuillez définir la capacité maximale avant de consommer du carburant.', 'error');
             return;
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}/fuel/add`, {
+            // MODIFICATION CLÉ ICI : Appel à l'API de consommation, et non d'ajout
+            const response = await fetch(`${API_BASE_URL}/fuel/consume`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount: amountToAdd }),
@@ -134,11 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (!response.ok) {
                 // Si le backend renvoie un message d'erreur, utilisez-le
-                throw new Error(data.message || 'Erreur lors de l\'ajout de carburant.');
+                throw new Error(data.message || 'Erreur lors de la consommation de carburant.');
             }
             showMessage(manualMessage, data.message, 'success');
             manualLitresInput.value = ''; // Réinitialise le champ d'entrée
-            fetchFuelData(); // Rafraîchit l'affichage après l'ajout
+            fetchFuelData(); // Rafraîchit l'affichage après la consommation
         } catch (error) {
             console.error('Erreur:', error);
             showMessage(manualMessage, `Erreur: ${error.message}`, 'error');
