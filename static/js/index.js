@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // const consumeManualFuelButton = document.getElementById('consumeManualFuel'); // Sera null si non ajouté dans HTML
 
 
-    const API_BASE_URL = 'http://127.0.0.1:5000/api'; // L'adresse de votre backend Flask
+  const API_BASE_URL = 'https://espace-caburant.onrender.com/api'; // NOUVELLE ADRESSE DE VOTRE BACKEND SUR RENDER
 
     // --- Fonctions utilitaires ---
 

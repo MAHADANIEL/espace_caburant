@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Assurez-vous que c'est l'adresse de votre backend Flask
     // J'ai renommé pour plus de clarté, mais l'URL de base reste la même
-    const API_ROOT_URL = 'http://127.0.0.1:5000/api'; 
-
+const API_ROOT_URL = 'https://espace-caburant.onrender.com/api'; // NOUVELLE ADRESSE DE VOTRE BACKEND SUR RENDER
     // --- Fonctionnalité de connexion ---
     const checkLogin = () => {
         if (localStorage.getItem('loggedIn') !== 'true') {
