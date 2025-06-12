@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
 from datetime import datetime
+import os 
+import tempfile 
 
 app = Flask(__name__)
 CORS(app)  # Active CORS pour toutes les routes
@@ -234,16 +236,21 @@ def consume_fuel():
 # ******************************************************
 
 @app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/login')
 def login():
     return render_template('login.html')
+
+@app.route('/login')
+def go_to_login():
+    return render_template('login.html')
+
+@app.route('/index')
+def index():
+    return render_template('index.html')
 
 @app.route('/historique')
 def historique():
     return render_template('historique.html')
+
 
 # ******************************************************
 # --- 3. LANCEMENT DE L'APPLICATION ---

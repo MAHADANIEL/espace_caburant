@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Redirection vers la page d'historique
     historyButton.addEventListener('click', () => {
-        window.location.href = 'historique.html';
+        window.location.href = '/historique';
     });
 
     // --- Fonctions pour l'horloge (aucune modification nécessaire) ---

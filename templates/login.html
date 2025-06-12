@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espace Carburant - Connexion</title>
-    <link rel="stylesheet" href="login.css">
+   <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -22,6 +22,6 @@
         <p class="footer-text">© 2023 Espace Carburant. Tous droits réservés.</p>
     </div>
 
-    <script src="login.js"></script>
+    <script src="{{url_for('static',filename='js/login.js')}}"></script>
 </body>
 </html>
